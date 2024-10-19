@@ -3,12 +3,12 @@ import "./MemoryGame.css";
 
 // Fest definierte Aufgabenpaare
 const tasks = [
-  { plus: { task: "5 + 3", result: 8 }, minus: { task: "8 - 3", result: 5 } },
-  { plus: { task: "7 + 4", result: 11 }, minus: { task: "11 - 4", result: 7 } },
-  { plus: { task: "6 + 2", result: 8 }, minus: { task: "8 - 2", result: 6 } },
-  { plus: { task: "9 + 1", result: 10 }, minus: { task: "10 - 1", result: 9 } },
-  { plus: { task: "3 + 6", result: 9 }, minus: { task: "9 - 6", result: 3 } },
-  { plus: { task: "4 + 5", result: 9 }, minus: { task: "9 - 5", result: 4 } }
+  { plus: { task: "5 + 3", result: 8 }, minus: { task: "18 - 5", result: 13 } },
+  { plus: { task: "7 + 4", result: 11 }, minus: { task: "11 - 3", result: 8 } },
+  { plus: { task: "6 + 9", result: 15 }, minus: { task: "18 - 2", result: 16 } },
+  { plus: { task: "9 + 7", result: 16 }, minus: { task: "19 - 4", result: 15 } },
+  { plus: { task: "3 + 6", result: 9 }, minus: { task: "17 - 6", result: 11 } },
+  { plus: { task: "4 + 9", result: 13 }, minus: { task: "14 - 5", result: 9 } }
 ];
 
 const MemoryGame = () => {
