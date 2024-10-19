@@ -11,22 +11,21 @@ const tasks = [
   { plus: { task: "4 + 9", result: 13 }, minus: { task: "14 - 5", result: 9 } }
 ];
 
-const MemoryGame = () => {
+function MemoryGame() {
   const [selected, setSelected] = useState([]); // Aktuell ausgewählte Karten
-  const [matched, setMatched] = useState([]);   // Richtig zugeordnete Paare
-  const [attempts, setAttempts] = useState(0);  // Anzahl der Versuche
-  const [completedRounds, setCompletedRounds] = useState(0);  // Anzahl der gespielten Runden
-  const [isGameOver, setIsGameOver] = useState(false);  // Spielstatus
-  const [showError, setShowError] = useState(false);    // Anzeige von Fehlern bei falscher Auswahl
+  const [matched, setMatched] = useState([]); // Richtig zugeordnete Paare
+  const [attempts, setAttempts] = useState(0); // Anzahl der Versuche
+  const [completedRounds, setCompletedRounds] = useState(0); // Anzahl der gespielten Runden
+  const [isGameOver, setIsGameOver] = useState(false); // Spielstatus
+  const [showError, setShowError] = useState(false); // Anzeige von Fehlern bei falscher Auswahl
+
 
   // Prüfe, ob ein Paar korrekt ausgewählt wurde
   useEffect(() => {
     if (selected.length === 2) {
       const [first, second] = selected;
-      if (
-        (first.type === "plus" && second.type === "minus" && first.result === second.result) ||
-        (first.type === "minus" && second.type === "plus" && first.result === second.result)
-      ) {
+      if ((first.type === "plus" && second.type === "minus" && first.result === second.result) ||
+        (first.type === "minus" && second.type === "plus" && first.result === second.result)) {
         setMatched([...matched, first, second]);
       } else {
         setShowError(true);
@@ -46,11 +45,9 @@ const MemoryGame = () => {
 
   // Klick-Event für die Karten
   const handleCardClick = (task, type) => {
-    if (
-      selected.length < 2 &&
+    if (selected.length < 2 &&
       !selected.some((sel) => sel.task === task.task) &&
-      !matched.some((sel) => sel.task === task.task)
-    ) {
+      !matched.some((sel) => sel.task === task.task)) {
       setSelected([...selected, { ...task, type }]);
     }
   };
@@ -73,9 +70,7 @@ const MemoryGame = () => {
           {tasks.map((task, index) => (
             <div
               key={index}
-              className={`card ${matched.includes(task.plus) ? "matched" : ""} ${
-                selected.includes(task.plus) ? "selected" : ""
-              } ${showError && selected.includes(task.plus) ? "error" : ""}`}
+              className={`card ${matched.includes(task.plus) ? "matched" : ""} ${selected.includes(task.plus) ? "selected" : ""} ${showError && selected.includes(task.plus) ? "error" : ""}`}
               onClick={() => handleCardClick(task.plus, "plus")}
             >
               {task.plus.task}
@@ -87,9 +82,7 @@ const MemoryGame = () => {
           {tasks.map((task, index) => (
             <div
               key={index}
-              className={`card ${matched.includes(task.minus) ? "matched" : ""} ${
-                selected.includes(task.minus) ? "selected" : ""
-              } ${showError && selected.includes(task.minus) ? "error" : ""}`}
+              className={`card ${matched.includes(task.minus) ? "matched" : ""} ${selected.includes(task.minus) ? "selected" : ""} ${showError && selected.includes(task.minus) ? "error" : ""}`}
               onClick={() => handleCardClick(task.minus, "minus")}
             >
               {task.minus.task}
@@ -108,6 +101,6 @@ const MemoryGame = () => {
       )}
     </div>
   );
-};
+}
 
 export default MemoryGame;
