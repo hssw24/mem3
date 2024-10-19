@@ -1,15 +1,17 @@
 .memory-game {
     text-align: center;
-    margin: 22px;
+    margin: 20px;
   }
   
   .grid {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;  /* Für Handy-Optimierung */
   }
   
   .column {
     width: 45%;
+    margin-bottom: 20px; /* Platz zwischen den Spalten */
   }
   
   .card {
@@ -19,6 +21,7 @@
     font-size: 18px;
     cursor: pointer;
     transition: background-color 0.5s;
+    border-radius: 10px;
   }
   
   .matched {
@@ -44,5 +47,17 @@
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+  }
+  
+  /* Für Handy-Bildschirme */
+  @media (max-width: 600px) {
+    .column {
+      width: 100%; /* Spalten auf voller Breite */
+    }
+    
+    .card {
+      font-size: 16px;
+      padding: 15px;
+    }
   }
   

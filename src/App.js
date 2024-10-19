@@ -1,37 +1,28 @@
 import React, { useState, useEffect } from "react";
 import "./MemoryGame.css";
 
-const generateRandomNumber = (max) => Math.floor(Math.random() * max) + 1;
-
-const generateTasks = () => {
-  const tasks = [];
-  for (let i = 0; i < 6; i++) {
-    const a = generateRandomNumber(10);
-    const b = generateRandomNumber(10);
-    const sum = a + b;
-    tasks.push({
-      plus: { task: `${a} + ${b}`, result: sum },
-      minus: { task: `${sum} - ${b}`, result: a },
-    });
-  }
-  
-  // Shuffle tasks to mix plus and minus pairs
-  return tasks.sort(() => Math.random() - 0.5);
-};
+// Fest definierte Aufgabenpaare
+const tasks = [
+  { plus: { task: "5 + 3", result: 8 }, minus: { task: "8 - 3", result: 5 } },
+  { plus: { task: "7 + 4", result: 11 }, minus: { task: "11 - 4", result: 7 } },
+  { plus: { task: "6 + 2", result: 8 }, minus: { task: "8 - 2", result: 6 } },
+  { plus: { task: "9 + 1", result: 10 }, minus: { task: "10 - 1", result: 9 } },
+  { plus: { task: "3 + 6", result: 9 }, minus: { task: "9 - 6", result: 3 } },
+  { plus: { task: "4 + 5", result: 9 }, minus: { task: "9 - 5", result: 4 } }
+];
 
 const MemoryGame = () => {
-  const [tasks, setTasks] = useState(generateTasks());
-  const [selected, setSelected] = useState([]);
-  const [matched, setMatched] = useState([]);
-  const [attempts, setAttempts] = useState(0);
-  const [completedRounds, setCompletedRounds] = useState(0);
-  const [isGameOver, setIsGameOver] = useState(false);
-  const [showError, setShowError] = useState(false);
+  const [selected, setSelected] = useState([]); // Aktuell ausgewählte Karten
+  const [matched, setMatched] = useState([]);   // Richtig zugeordnete Paare
+  const [attempts, setAttempts] = useState(0);  // Anzahl der Versuche
+  const [completedRounds, setCompletedRounds] = useState(0);  // Anzahl der gespielten Runden
+  const [isGameOver, setIsGameOver] = useState(false);  // Spielstatus
+  const [showError, setShowError] = useState(false);    // Anzeige von Fehlern bei falscher Auswahl
 
+  // Prüfe, ob ein Paar korrekt ausgewählt wurde
   useEffect(() => {
     if (selected.length === 2) {
       const [first, second] = selected;
-      // Check if selected pair matches (Plus and Minus results match)
       if (
         (first.type === "plus" && second.type === "minus" && first.result === second.result) ||
         (first.type === "minus" && second.type === "plus" && first.result === second.result)
@@ -46,15 +37,15 @@ const MemoryGame = () => {
     }
   }, [selected]);
 
+  // Prüfe, ob alle Paare gefunden wurden
   useEffect(() => {
-    // Game is over when all pairs are matched
     if (matched.length === tasks.length * 2) {
       setIsGameOver(true);
     }
   }, [matched]);
 
+  // Klick-Event für die Karten
   const handleCardClick = (task, type) => {
-    // Only allow two cards to be selected at a time, and ignore already matched cards
     if (
       selected.length < 2 &&
       !selected.some((sel) => sel.task === task.task) &&
@@ -64,8 +55,8 @@ const MemoryGame = () => {
     }
   };
 
+  // Spiel zurücksetzen
   const resetGame = () => {
-    setTasks(generateTasks());
     setSelected([]);
     setMatched([]);
     setAttempts(0);
@@ -110,8 +101,8 @@ const MemoryGame = () => {
       {isGameOver && (
         <div className="game-over">
           <h2>Spiel beendet!</h2>
-          <p>Du hast {attempts} Versuche gebraucht. 
-          Bisher gespielte Runden: {completedRounds}</p>
+          <p>Du hast {attempts} Versuche gebraucht.</p>
+          <p>Bisher gespielte Runden: {completedRounds}</p>
           <button onClick={resetGame}>Noch eine Runde spielen</button>
         </div>
       )}
